@@ -1,7 +1,7 @@
 SCN data analysis
 ==========================
 
-This repository contains analysis code for the Superchiasmatic Nuclei project carried out by researchers at the [Konopka Lab, UTSW](http://konopkalab.org/) and [Takahashi Lab, UTSW] (https://www.utsouthwestern.edu/labs/takahashi-joseph/)
+This repository contains analysis code for the Superchiasmatic Nuclei project carried out by researchers at the [Konopka Lab, UTSW](http://konopkalab.org/) and [Takahashi Lab, UTSW](https://www.utsouthwestern.edu/labs/takahashi-joseph/)
 
 ## Citation
 
