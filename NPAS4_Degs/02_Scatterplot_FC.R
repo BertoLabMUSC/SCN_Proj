@@ -30,9 +30,4 @@ xlab("log2FC WL/WD")+
 ylab("log2FC KL/KD")
 dev.off()
 
-
-
-
-
-
-
+session.info()
