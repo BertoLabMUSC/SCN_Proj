@@ -96,3 +96,5 @@ write.xlsx(KDvsKL, file="output/NPAS4_DEGs.xlsx", sheetName="KDvsKL", row.names=
 write.xlsx(WDvsKD, file="output/NPAS4_DEGs.xlsx", sheetName="WDvsKD", append=TRUE, row.names=TRUE)
 write.xlsx(WDvsWL, file="output/NPAS4_DEGs.xlsx", sheetName="WDvsWL", append=TRUE, row.names=TRUE)
 write.xlsx(WLvsKL, file="output/NPAS4_DEGs.xlsx", sheetName="WLvsKL", append=TRUE, row.names=TRUE)
+            
+sessionInfo()
