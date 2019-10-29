@@ -12,7 +12,6 @@ If you use anything in this repository please cite the following publication:
 
 | directory | contents |
 | --------- | -------- |
-| [`processing_qc`](processing_qc/) | Output data from initial processing and quality check. |
-| [`processing_memory`](processing_memory/) | Output data from memory (SME) analysis. |
-| [`processing_math`](processing_math/) | Output data from math task analysis. |
-| [`processing_mri`](processing_mri/) | Output data from MRI (thickness) analysis. |
+| [`Light_Stimulation`](Light_Stimulation/) | Directory for the Light_Stimulation analysis with codes. |
+| [`NPAS4_Degs`](NPAS4_Degs/) | Directory for the NPAS4 analysis with codes. |
+| [`SCN_snRNA-seq`](SCN_snRNA-seq/) | Directory for the snRNA-seq analysis with codes. |
