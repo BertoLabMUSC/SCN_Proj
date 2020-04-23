@@ -4,6 +4,7 @@ This script performs pre-processing of the raw sequencing data to generate UMI c
 
 
 
+
 #### DEMULTIPLEXING
 
 - demultiplex the raw sequencing data BCL files
@@ -14,6 +15,7 @@ This script performs pre-processing of the raw sequencing data to generate UMI c
 cellranger mkfastq --run=<path to BCL files> --samplesheet=<path to sample sheet>
 ```
 
+  
   
 
 #### QUALITY CHECK
@@ -28,6 +30,7 @@ ls *.fastq.gz | sed "s/.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; fast
 
   
 
+
 #### WHITELIST
 
 - estimate and create a *whitelist* of real cell barcodes from the quality filtered fastq.gz files
@@ -38,6 +41,7 @@ ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_
 ```
 
   
+
 
 #### EXTRACT READS
 
@@ -50,6 +54,7 @@ ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_
 ```
 
   
+
 
 #### READS ALIGNMENT
 
@@ -65,6 +70,7 @@ ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_
 ```bash
 STAR --runMode genomeGenerate --runThreadN 48 --genomeDir <genome index directory> --genomeFastaFiles <reference genome fasta  file> --sjdbGTFfile <reference annotation gtf file> --sjdbOverhang 100
 ```
+
 
 
 
@@ -95,6 +101,7 @@ for FQFILE in `ls *R2_extracted*.gz`
 
 
 
+
 #### READS ASSIGNMENT
 
 - assign the aligned reads with reference annotation
@@ -122,6 +129,7 @@ for BAMFILE in `ls *_STAR_Aligned.sortedByCoord.out.bam`
 
 
 
+
 #### SORT AND INDEX BAM FILE
 
 - *sort* and *index* the assigned bam file
@@ -138,6 +146,7 @@ for BFILE in `ls *featureCounts.bam`
 
 
 
+
 #### COUNT UMI PER GENE PER CELL
 
 - generate *count* table from assigned and sorted reads
@@ -146,4 +155,6 @@ for BFILE in `ls *featureCounts.bam`
 ```bash
 ls *_STAR_Aligned_Assigned_Sorted.bam | sed "s/_STAR_Aligned_Assigned_Sorted.bam//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_tools count --per-gene --gene-tag=XT --per-cell --stdin=%_STAR_Aligned_Assigned_Sorted.bam --stdout=%_Counts.tsv.gz --log=%_Counts.log --error=%_Counts.err --wide-format-cell-counts'
 ```
+
+
 
