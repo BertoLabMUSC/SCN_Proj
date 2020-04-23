@@ -1,12 +1,10 @@
 # DATA PRE-PROCESSING
-
 This script performs pre-processing of the raw sequencing data to generate UMI count tables in multiple steps. Script primarily runs in bash or linux shell and makes use of few tools such as Illumin's bcl2fastq, 10X Genomics's CellRanger, FASTQC, STAR, featureCounts, UMI Tools, etc.
 
 
 
 
 #### DEMULTIPLEXING
-
 - demultiplex the raw sequencing data BCL files
 - resulting files are fastq.gz files
 - uses Illumina's *bcl2fastq* and 10X Genomics *CellRanger* software program
@@ -19,7 +17,7 @@ cellranger mkfastq --run=<path to BCL files> --samplesheet=<path to sample sheet
 
 #### COMBINING FASTQ FILES
 - demultiplexed fastq files are usually separated by lanes
-- simple *cat* command can combine multiple lanes into a single fastq file
+- *cat* command (bash) can combine multiple lanes into a single fastq file
 - *samples.txt* contains list of samples
 
 ```bash
@@ -36,9 +34,7 @@ cat samples.txt | while read line
 
 
 #### QUALITY CHECK
-
 - run quality check on the fastq.gz files
-
 - uses *FASTQC* software program
 
 ```bash
@@ -49,7 +45,6 @@ ls *.fastq.gz | sed "s/.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; fast
 
 
 #### WHITELIST
-
 - estimate and create a *whitelist* of real cell barcodes from the quality filtered fastq.gz files
 - uses UMI Tools software program
 
@@ -61,7 +56,6 @@ ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_
 
 
 #### EXTRACT READS
-
 - *extract* the reads corresponding to estimated whitelist of real cell barcodes
 - also appends the cell-barcode and umi information from R1 fastq files to read names of R2 fastq files
 - uses UMI Tools software program
@@ -74,12 +68,10 @@ ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_
 
 
 #### READS ALIGNMENT
-
 - align the extracted reads with reference genome and annotation
 - uses *STAR* software program
 
 ###### Prior alignment, reference genome index need to be built
-
 - This is one-time only step and can be used multiple times for same genome build
 - genome build: mouse genome GRCm38.p6 (MM10)
 - annotation: gencode vM17
@@ -120,7 +112,6 @@ for FQFILE in `ls *R2_extracted*.gz`
 
 
 #### READS ASSIGNMENT
-
 - assign the aligned reads with reference annotation
 - uses *featureCounts* software program
 
@@ -148,7 +139,6 @@ for BAMFILE in `ls *_STAR_Aligned.sortedByCoord.out.bam`
 
 
 #### SORT AND INDEX BAM FILE
-
 - *sort* and *index* the assigned bam file
 - uses *Samtools* software program
 
@@ -165,7 +155,6 @@ for BFILE in `ls *featureCounts.bam`
 
 
 #### COUNT UMI PER GENE PER CELL
-
 - generate *count* table from assigned and sorted reads
 - uses UMI Tools software program
 
