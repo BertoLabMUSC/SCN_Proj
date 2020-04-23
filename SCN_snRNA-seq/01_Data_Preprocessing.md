@@ -52,7 +52,7 @@ ls *.fastq.gz | sed "s/.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; fast
 ls *R1*.gz | sed "s/_R1.fastq.gz//g" | xargs -I % -n 1 -P 48 sh -c 'echo %; umi_tools whitelist --stdin=%_R1.fastq.gz --bc-pattern=CCCCCCCCCCCCCCCCNNNNNNNNNN --expect-cells=<number of expected cells> --plot-prefix=%_Expect_Whitelist --log=%_Whitelist_log.out --error=%_Whitelist_log.err --stdout=%_Whitelist.txt'
 ```
 
-  
+
 
 
 #### EXTRACT READS
@@ -126,7 +126,7 @@ for BAMFILE in `ls *_STAR_Aligned.sortedByCoord.out.bam`
     -R BAM \
     -T 48 \
     -s 1 \
-    -t exon \
+    -t gene \
     -g gene_name \
     -a <path to reference annotation gtf file> \
     -o ${prefx}_Primary_Gene_Assigned \
