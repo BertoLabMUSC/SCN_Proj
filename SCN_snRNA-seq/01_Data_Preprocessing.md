@@ -16,7 +16,24 @@ cellranger mkfastq --run=<path to BCL files> --samplesheet=<path to sample sheet
 ```
 
   
+
+#### COMBINING FASTQ FILES
+- demultiplexed fastq files are usually separated by lanes
+- simple *cat* command can combine multiple lanes into a single fastq file
+- *samples.txt* contains list of samples
+
+```bash
+cat samples.txt | while read line
+  do
+    myLibrary=`echo $line`
+    echo "Processing" ${myLibrary}
+    cat ${myLibrary}/${myLibrary}*R1*.gz > ${myLibrary}_R1.fastq.gz
+    cat ${myLibrary}/${myLibrary}*R2*.gz > ${myLibrary}_R2.fastq.gz
+  done
+```
   
+
+
 
 #### QUALITY CHECK
 
