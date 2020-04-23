@@ -1,1 +1,1 @@
-This repository hosts the code used for pre-processing and analysis of single nuclei RNA sequencing dataset for Takahashi Lab.
+This repository hosts the code used for pre-processing and analysis of SCN single nuclei RNA sequencing dataset.
