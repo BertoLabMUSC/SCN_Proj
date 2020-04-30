@@ -1,4 +1,4 @@
-# CLUSTERING DATA
+# CLUSTERING DATA | ALL CELLS
 This script performs data clustering on single nuclei RNA-seq UMI counts dataset in multiple steps such as filtering, normalization, scaling using Seurat pipeline (Seurat v3.0). Towards the end, gene markers per cluster are also determined using seurat functions. *sessionInfo* is provided towards the end of the script.
 
 
