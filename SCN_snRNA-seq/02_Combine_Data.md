@@ -16,6 +16,7 @@ print(dim(refGenesSymbol))
 ```
 
 
+
 ###### Identify, extract and collapse common cells for each library
 For each library, common cell barcodes are first identified and a plot showing common and unique cell barcodes across technical replicates is generated using *UpSetR* R package. Using the list of common cell barcodes identified across technical replicates of each library, data corresponding to common cell barcodes is extracted and collapsed using *aggregate* function. And, aggregated data frame for each library is stored as RData object.
 ```R
@@ -25,7 +26,7 @@ collapseCommonCells <- function(dataTR1, dataTR2, nameLIB)
 	print(paste("Data Technical Rep 1:", ncol(dataTR1), "Cells", sep = " "))
 	print(paste("Data Technical Rep 2:", ncol(dataTR2), "Cells", sep = " "))
 
-	######################### IDENTIFY COMMON CELLS
+	######################### Identify common cells
 	libCells <- list(TR1 = colnames(dataTR1), TR2 = colnames(dataTR2))
 
 	pdf(paste("SCN_10X", nameLIB, "Common_CellBarcodes.pdf", sep = "_"), width = 6, height = 4)
@@ -41,7 +42,7 @@ collapseCommonCells <- function(dataTR1, dataTR2, nameLIB)
 	write.table(commonCellsLib, paste("SCN_10X", nameLIB, "Common_CellBarcodes.txt", sep = "_"), row.names = F, col.names = F, quote = F, sep = "\t")
 
 
-	######################### EXTRACT COMMON CELLS
+	######################### Extract common cells
 	dataTR1common <- dataTR1[,colnames(dataTR1) %in% commonCellsLib]
 	colnames(dataTR1common) <- paste(nameLIB, "TR1", colnames(dataTR1common), sep = "_")
 	dataTR1common$genes <- row.names(dataTR1common)
@@ -51,7 +52,7 @@ collapseCommonCells <- function(dataTR1, dataTR2, nameLIB)
 	dataTR2common$genes <- row.names(dataTR2common)
 
 
-	######################### COLLAPSE COMMON CELLS
+	######################### Collapse common cells
 	combinedData <- merge(dataTR1common, dataTR2common, by = "genes")
 	row.names(combinedData) <- combinedData$genes
 	combinedData$genes <- NULL
@@ -77,7 +78,7 @@ collapseCommonCells <- function(dataTR1, dataTR2, nameLIB)
 	colnames(newDataAggr) <- paste(nameLIB, colnames(newDataAggr), sep = "_")
 	newDataAggr$genes <- row.names(newDataAggr)
 
-	######################### SAVE COLLAPSED DATA
+	######################### Save collapsed data
 	save(newDataAggr, file = paste(nameLIB, "Collapsed_Data.RData", sep = "_"))
 	print(paste("Collapse Complete:", nameLIB, sep = ""))
 	}
@@ -98,17 +99,18 @@ for (lib in c("Lib01", "Lib02", "Lib03", "Lib04", "Lib05", "Lib06", "Lib07", "Li
 ```
 
 
+
 ###### Read and update collapsed UMI count tables
 Read collapsed UMI counts table for each library into a list and merge into a massive data frame with reference gene symbols. For the genes missing in the counts table, replace NAs with zeros.
 ```R
-######################### Reference Genes
+######################### Reference genes
 refGenes <- read.table("gencode.vM17.protein_coding_gene_id_symbol.txt", sep = "\t", header = T)
 refGenesSymbol <- as.data.frame(unique(sort(refGenes$GeneSymbol)))
 colnames(refGenesSymbol) <- "genes"
 row.names(refGenesSymbol) <- refGenesSymbol$genes
 print(dim(refGenesSymbol))
 
-######################### Collapsed Data
+######################### Collapsed data
 print("Lib01")
 liblist1 <- load("Lib01_Collapsed_Data.RData")
 lib01.data <- newDataAggr
@@ -117,7 +119,7 @@ rm(liblist1)
 print(dim(lib01.data))
 ## Repeat for each library before next step
 
-######################### List of collapsed Data with reference gene list
+######################### List of collapsed data with reference gene list
 allDataTemp <- list(GENES = refGenesSymbol,
                     D0 = lib01.data,
                     D1 = lib02.data,
@@ -136,11 +138,11 @@ row.names(allData) <- allData$genes
 allData$genes <- NULL
 print(dim(allData))
 
-######################### Replace NAs with Zeros
+######################### Replace NAs with zeros
 allData[is.na(allData)] <- 0
 print(dim(allData))
 
-######################### Save Collapsed and Combined Data
+######################### Save collapsed and combined Data
 save(allData, file = "SCN_DATA_COLLAPSED_COMBINED.RData")
 ```
 
