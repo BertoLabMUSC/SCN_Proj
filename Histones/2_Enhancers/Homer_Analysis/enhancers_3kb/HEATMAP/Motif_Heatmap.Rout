@@ -1,0 +1,83 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(reshape2)
+> library(WGCNA)
+Loading required package: dynamicTreeCut
+Loading required package: fastcluster
+
+Attaching package: ‘fastcluster’
+
+The following object is masked from ‘package:stats’:
+
+    hclust
+
+
+
+Attaching package: ‘WGCNA’
+
+The following object is masked from ‘package:stats’:
+
+    cor
+
+> library(tidyverse)
+── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+✔ ggplot2 3.2.1          ✔ purrr   0.3.3     
+✔ tibble  2.1.3          ✔ dplyr   0.8.4     
+✔ tidyr   1.0.2.9000     ✔ stringr 1.4.0     
+✔ readr   1.3.1          ✔ forcats 0.4.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+> 
+> tab <- read.table("motifs_100kb.txt",header=T,sep="\t")
+> df <- reshape2::dcast(tab,Gene ~ Class,value.var="FDR",fun.aggregate = mean)
+> rownames(df) <- df$Gene
+> df$Gene <- NULL
+> df[is.na(df)] <- 1
+> 
+> order <- c("min30","hr01","hr03","hr06")
+> df <- df[,match(order,colnames(df))]
+> 
+> df <- -log10(df)
+> 
+> 
+> df1 <- df %>% rownames_to_column("TF") %>% arrange(desc(min30),desc(hr01),desc(hr03),desc(hr06)) %>% column_to_rownames("TF")
+> 
+> # Colors
+> low0 <- rgb(246, 248, 251, maxColorValue = 255)
+> low1 <- rgb(201, 230, 234, maxColorValue = 255)
+> low2 <- rgb(89, 158, 193, maxColorValue = 255)
+> mid <- rgb(67, 121, 180, maxColorValue = 255)
+> high1 <- rgb(65, 90, 158, maxColorValue = 255)
+> high2 <- rgb(52, 52, 106, maxColorValue = 255)
+> high3 <- rgb(15, 15, 25, maxColorValue = 255)
+> 
+> 
+> pdf("Motif_100kb_Cascade.pdf",width=4,height=14)
+> labeledHeatmap(Matrix = df1, xLabels = colnames(df1), yLabels = rownames(df1), 
++ 	colorLabels =FALSE,colors=colorRampPalette(c(low0, low1, low2, mid, high1))(50),
++ 	setStdMargins = FALSE, cex.text = 0.5)
+> dev.off()
+null device 
+          1 
+> 
+> proc.time()
+   user  system elapsed 
+  3.790   0.212   4.003 
