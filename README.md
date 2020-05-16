@@ -12,6 +12,7 @@ If you use anything in this repository please cite the following publication:
 
 | directory | contents |
 | --------- | -------- |
+| [`Histones`](Histones/) | Directory for the Light_Stimulation Histones analysis with codes. |
 | [`Light_Stimulation`](Light_Stimulation/) | Directory for the Light_Stimulation analysis with codes. |
 | [`NPAS4_Degs`](NPAS4_Degs/) | Directory for the NPAS4 analysis with codes. |
 | [`SCN_snRNA-seq`](SCN_snRNA-seq/) | Directory for the snRNA-seq analysis with codes. |
