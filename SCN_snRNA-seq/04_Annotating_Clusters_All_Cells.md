@@ -14,9 +14,9 @@ tab <- read.table(paste("./../", degtable, sep = ""), sep = "\t", header = T)
 tab <- tab[tab$p_val_adj <= 0.05 & tab$pct.1 >= 0.75,]
 tab <- tab[c(7,8)]
 tab$cluster <- as.factor(paste("Cluster_", sprintf("%02d", tab$cluster), sep=""))
-colnames(tab)=c("Gene","DEFINITION")
+colnames(tab) <- c("Gene","DEFINITION")
 tab$DEFINITION <- as.factor(tab$DEFINITION)
-Genes=as.data.frame(table(tab$DEFINITION))
+Genes <- as.data.frame(table(tab$DEFINITION))
 
 ######################### Read reference cell-type markers
 load("Hrvatin_VisualCortex_Data_QC_Filt_Norm_PCA_Clust_DEG.RData")
@@ -25,36 +25,36 @@ hrvatinAllSig <- hrvatin.markers[hrvatin.markers$p_val_adj <= 0.05,]
 hrvatinAllSig2 <- hrvatinAllSig[hrvatinAllSig$pct.1 >= 0.5,]
 hrvatinAllSig3 <- hrvatinAllSig2[c(7,6)]
 
-vcGenes <- list(Astro = greenbergAllSig3[greenbergAllSig3$cluster == "Astro",],
-                Endo_1 = greenbergAllSig3[greenbergAllSig3$cluster == "Endo_1",],
-                Endo_2 = greenbergAllSig3[greenbergAllSig3$cluster == "Endo_2",],
-                Macrophage = greenbergAllSig3[greenbergAllSig3$cluster == "Macrophage",],
-                Micro_1 = greenbergAllSig3[greenbergAllSig3$cluster == "Micro_1",],
-                Micro_2 = greenbergAllSig3[greenbergAllSig3$cluster == "Micro_2",],
-                Neu_ExcL23 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL23",],
-                Neu_ExcL4 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL4",],
-                Neu_ExcL5_1 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL5_1",],
-                Neu_ExcL5_2 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL5_2",],
-                Neu_ExcL5_3 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL5_3",],
-                Neu_ExcL6 = greenbergAllSig3[greenbergAllSig3$cluster == "ExcL6",],
-                Neu_Int_Cck = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Cck",],
-                Neu_Int_Npy = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Npy",],
-                Neu_Int_Pv = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Pv",],
-                Neu_Int_Sst_1 = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Sst_1",],
-                Neu_Int_Sst_2 = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Sst_2",],
-                Neu_Int_Vip = greenbergAllSig3[greenbergAllSig3$cluster == "Int_Vip",],
-                Olig_1 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_1",],
-                Olig_2 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_2",],
-                Olig_3 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_3",],
-                Olig_4 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_4",],
-                Olig_5 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_5",],
-                Olig_6 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_6",],
-                Olig_7 = greenbergAllSig3[greenbergAllSig3$cluster == "Olig_7",],
-                OPC_1 = greenbergAllSig3[greenbergAllSig3$cluster == "OPC_1",],
-                OPC_2 = greenbergAllSig3[greenbergAllSig3$cluster == "OPC_2",],
-                Pericyte = greenbergAllSig3[greenbergAllSig3$cluster == "Pericyte",],
-                SM_1 = greenbergAllSig3[greenbergAllSig3$cluster == "SM_1",],
-                SM_2 = greenbergAllSig3[greenbergAllSig3$cluster == "SM_2",])
+vcGenes <- list(Astro = hrvatinAllSig3[hrvatinAllSig3$cluster == "Astro",],
+                Endo_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Endo_1",],
+                Endo_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Endo_2",],
+                Macrophage = hrvatinAllSig3[hrvatinAllSig3$cluster == "Macrophage",],
+                Micro_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Micro_1",],
+                Micro_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Micro_2",],
+                Neu_ExcL23 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL23",],
+                Neu_ExcL4 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL4",],
+                Neu_ExcL5_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL5_1",],
+                Neu_ExcL5_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL5_2",],
+                Neu_ExcL5_3 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL5_3",],
+                Neu_ExcL6 = hrvatinAllSig3[hrvatinAllSig3$cluster == "ExcL6",],
+                Neu_Int_Cck = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Cck",],
+                Neu_Int_Npy = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Npy",],
+                Neu_Int_Pv = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Pv",],
+                Neu_Int_Sst_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Sst_1",],
+                Neu_Int_Sst_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Sst_2",],
+                Neu_Int_Vip = hrvatinAllSig3[hrvatinAllSig3$cluster == "Int_Vip",],
+                Olig_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_1",],
+                Olig_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_2",],
+                Olig_3 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_3",],
+                Olig_4 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_4",],
+                Olig_5 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_5",],
+                Olig_6 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_6",],
+                Olig_7 = hrvatinAllSig3[hrvatinAllSig3$cluster == "Olig_7",],
+                OPC_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "OPC_1",],
+                OPC_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "OPC_2",],
+                Pericyte = hrvatinAllSig3[hrvatinAllSig3$cluster == "Pericyte",],
+                SM_1 = hrvatinAllSig3[hrvatinAllSig3$cluster == "SM_1",],
+                SM_2 = hrvatinAllSig3[hrvatinAllSig3$cluster == "SM_2",])
 
 GeneSets <- vcGenes
 
