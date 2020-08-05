@@ -1,0 +1,2 @@
+Gene	log2FoldChange	time	padj
+Rasd1	0.305414049	30_mins	2.51512e-05
