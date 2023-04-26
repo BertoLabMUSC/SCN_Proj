@@ -5,7 +5,8 @@ This repository contains analysis code for the Suprachiasmatic Nucleus project c
 
 ## Citation
 
-If you use anything in this repository please cite the following publication:
+If you use anything in this repository please cite the following publication: 
+https://www.cell.com/neuron/fulltext/S0896-6273(21)00570-5
 
 
 ## Files
